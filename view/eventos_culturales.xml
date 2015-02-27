@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<openerp>
+		<data>
+			<!-- declaracion de la vista formulario -->
+            <record model="ir.ui.view" id="eventos_form_view">
+            	<field name="name">eventos.form</field>
+            	<field name="model">extraescolares.eventos</field>
+            	<field name="arch" type="xml">
+            		<form string="eventos Form" version="7.0">
+            			<sheet>
+                                    <group col="5" colspan="2">
+                                          <label for="name"/>
+                  				<h3><field name="name"/></h3>
+                  				<label for="fecha_inicio"/>	
+                                          <h3><field name="fecha_inicio"/></h3>
+                                    </group>
+                                    <group col="5" colspan="3">
+                                          <label for="horas"/>
+                                          <h3><field name="horas"/></h3>          
+                                          <label for="fecha_fin"/>
+                                          <h3><field name="fecha_fin"/></h3>
+                                    </group>
+                                    <group col="2" colspan="20">
+                                          <label for="responsable"/>
+                                          <h3><field name="responsable"/></h3>
+                                          <label for="anotaciones"/>
+                                          <h3><field name="anotaciones"/></h3>
+                                    </group>
+                                          <field name="num_control_ids" colspan="4">
+                                          <tree string="Alumnos registrados" editable="top">
+                                                <field name="num_control" colspan="4" nolabel="1"/>
+                                           </tree>      
+                                          </field>
+                              </sheet>
+            		</form>
+                  </field>
+            </record>
+            <!-- creamos la vista lista -->
+            <record model="ir.ui.view" id="eventos_tree_view">
+            	<field name="name">eventos.tree</field>
+            	<field name="model">extraescolares.eventos</field>
+            	<field name="arch" type="xml">
+            		<tree string="Eventos Form">
+            			<field name="name"/>
+            			<field name="fecha_inicio"/>
+            			<field name="fecha_fin"/>
+                              <field name="horas"/>
+                              <field name="responsable"/>
+                              <field name="anotaciones"/>
+            		</tree>
+            	</field>
+            </record>
+
+            <!--elementos del menu-->
+            <!-- un primer nivel en el menu del lado izquierdo se necesita antes de usar
+            	 la action=attribute-->
+            <menuitem id="register_menu_eventos" name="Eventos" parent="main_register_menu" sequence="2"/>
+            <!-- ventanas de accion -->
+			<!-- La siguiente etiqueta es una definicion de la accion.
+			 Basicamente, creamos un registro en el modelo ir.actions.act_windows
+			 OpenERP hara el resto -->
+			 <record model="ir.actions.act_window" id="eventos_list_action">
+			 	<field name="name">Eventos Culturales</field>
+			 	<field name="res_model">extraescolares.eventos</field>
+			 	<field name="view_type">form</field>
+			 	<field name="view_mode">tree,form</field>
+			 	<field name="help" type="html">
+			 		<p class="oe_view_nocontent_create">Registar el primer evento cultural</p>
+			 	</field>
+			 </record>
+
+			<!--el siguiente elemento del menu deberia aparecer *despues* su register_menu padre y *despues* su accion course_list_action -->
+                  <menuitem id="register_evento" name="Culturales" parent="register_menu_eventos" action="eventos_list_action"/>
+                  <!-- ubicacion completa del id: action="extraescolares.register_list_action"
+                         no se requiere cuando es el mismo modulo -->
+
+		</data>
+	</openerp>
