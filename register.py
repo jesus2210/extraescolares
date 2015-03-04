@@ -2,8 +2,9 @@
 from openerp.osv import osv, fields
 
 
-class Register(osv.Model):
+class register(osv.Model):
     _name = "extraescolares.register"
+    _rec_name = "num_control"
 
     def _get_selection_semester(self, cursor, user_id, context=None):
         return (('1', 'Primer Semestre'),
@@ -57,3 +58,4 @@ class Register(osv.Model):
                         ('Numer_unique_telefon',
                          'UNIQUE(num_telefono)',
                          'El numero de telefono debe ser unico')]
+register()

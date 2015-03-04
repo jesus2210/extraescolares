@@ -3,7 +3,7 @@ from openerp.osv import osv, fields
 from datetime import datetime, timedelta
 
 
-class Actividad(osv.Model):
+class actividad(osv.Model):
     _name = "extraescolares.eventos"
 
     _columns = {
@@ -20,33 +20,27 @@ class Actividad(osv.Model):
         'anotaciones': fields.text('Anotaciones', help="Escriba anotaciones"),
 
         'num_control_ids': fields.one2many('extraescolares.asistentes',
-                                           'num_control',
+                                           'name',
                                            string="Alumnos",
                                            required=True, ondelete='cascade')
-
-        #'event_line': fields.one2many('extraescolares.eventos_line',
-         #                             'event_id',
-          #                            string="Add Alumnos",
-           #                           help="Añadir los alumnos al evento"
-            #                          )
+    }
+    _defaults = {
+        'fecha_inicio': fields.date.today
     }
 
+actividad()
 
-#class eventos_line(osv.Model):
-    #_name = "extraescolares.eventos_line"
 
-   # _columns = {
-       # 'name': fields.char(string="nombre", size=160),
-      #  'event_id': fields.many2one('extraescolares.eventos', 'Order Reference',
-     #                               required=True, ondelete='cascade', select=True),
-
-    #}
 class asistentes(osv.Model):
     _name = "extraescolares.asistentes"
 
     _columns = {
+        'name': fields.many2one('extraescolares.eventos',
+                                string="many2one obligado"
+                                ),
         'num_control': fields.many2one('extraescolares.register',
-                                       string="Alumnos",
-                                       required=True, ondelete='cascade'),
+                                       'Numero de control'),
 
     }
+
+asistentes()
